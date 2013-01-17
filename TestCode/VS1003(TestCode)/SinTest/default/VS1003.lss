@@ -1,0 +1,709 @@
+
+VS1003.elf:     file format elf32-avr
+
+Sections:
+Idx Name          Size      VMA       LMA       File off  Algn
+  0 .text         0000030e  00000000  00000000  00000054  2**1
+                  CONTENTS, ALLOC, LOAD, READONLY, CODE
+  1 .stab         00000378  00000000  00000000  00000364  2**2
+                  CONTENTS, READONLY, DEBUGGING
+  2 .stabstr      00000071  00000000  00000000  000006dc  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  3 .debug_aranges 00000020  00000000  00000000  0000074d  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  4 .debug_pubnames 0000010d  00000000  00000000  0000076d  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  5 .debug_info   000003ab  00000000  00000000  0000087a  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  6 .debug_abbrev 000001aa  00000000  00000000  00000c25  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  7 .debug_line   00000564  00000000  00000000  00000dcf  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  8 .debug_frame  000000e0  00000000  00000000  00001334  2**2
+                  CONTENTS, READONLY, DEBUGGING
+  9 .debug_str    0000017a  00000000  00000000  00001414  2**0
+                  CONTENTS, READONLY, DEBUGGING
+ 10 .debug_loc    00000100  00000000  00000000  0000158e  2**0
+                  CONTENTS, READONLY, DEBUGGING
+Disassembly of section .text:
+
+00000000 <__vectors>:
+   0:	12 c0       	rjmp	.+36     	; 0x26 <__ctors_end>
+   2:	2c c0       	rjmp	.+88     	; 0x5c <__bad_interrupt>
+   4:	2b c0       	rjmp	.+86     	; 0x5c <__bad_interrupt>
+   6:	2a c0       	rjmp	.+84     	; 0x5c <__bad_interrupt>
+   8:	29 c0       	rjmp	.+82     	; 0x5c <__bad_interrupt>
+   a:	28 c0       	rjmp	.+80     	; 0x5c <__bad_interrupt>
+   c:	27 c0       	rjmp	.+78     	; 0x5c <__bad_interrupt>
+   e:	26 c0       	rjmp	.+76     	; 0x5c <__bad_interrupt>
+  10:	25 c0       	rjmp	.+74     	; 0x5c <__bad_interrupt>
+  12:	24 c0       	rjmp	.+72     	; 0x5c <__bad_interrupt>
+  14:	23 c0       	rjmp	.+70     	; 0x5c <__bad_interrupt>
+  16:	22 c0       	rjmp	.+68     	; 0x5c <__bad_interrupt>
+  18:	21 c0       	rjmp	.+66     	; 0x5c <__bad_interrupt>
+  1a:	20 c0       	rjmp	.+64     	; 0x5c <__bad_interrupt>
+  1c:	1f c0       	rjmp	.+62     	; 0x5c <__bad_interrupt>
+  1e:	1e c0       	rjmp	.+60     	; 0x5c <__bad_interrupt>
+  20:	1d c0       	rjmp	.+58     	; 0x5c <__bad_interrupt>
+  22:	1c c0       	rjmp	.+56     	; 0x5c <__bad_interrupt>
+  24:	1b c0       	rjmp	.+54     	; 0x5c <__bad_interrupt>
+
+00000026 <__ctors_end>:
+  26:	11 24       	eor	r1, r1
+  28:	1f be       	out	0x3f, r1	; 63
+  2a:	cf e5       	ldi	r28, 0x5F	; 95
+  2c:	d4 e0       	ldi	r29, 0x04	; 4
+  2e:	de bf       	out	0x3e, r29	; 62
+  30:	cd bf       	out	0x3d, r28	; 61
+
+00000032 <__do_copy_data>:
+  32:	10 e0       	ldi	r17, 0x00	; 0
+  34:	a0 e6       	ldi	r26, 0x60	; 96
+  36:	b0 e0       	ldi	r27, 0x00	; 0
+  38:	ee e0       	ldi	r30, 0x0E	; 14
+  3a:	f3 e0       	ldi	r31, 0x03	; 3
+  3c:	02 c0       	rjmp	.+4      	; 0x42 <.do_copy_data_start>
+
+0000003e <.do_copy_data_loop>:
+  3e:	05 90       	lpm	r0, Z+
+  40:	0d 92       	st	X+, r0
+
+00000042 <.do_copy_data_start>:
+  42:	a0 36       	cpi	r26, 0x60	; 96
+  44:	b1 07       	cpc	r27, r17
+  46:	d9 f7       	brne	.-10     	; 0x3e <.do_copy_data_loop>
+
+00000048 <__do_clear_bss>:
+  48:	10 e0       	ldi	r17, 0x00	; 0
+  4a:	a0 e6       	ldi	r26, 0x60	; 96
+  4c:	b0 e0       	ldi	r27, 0x00	; 0
+  4e:	01 c0       	rjmp	.+2      	; 0x52 <.do_clear_bss_start>
+
+00000050 <.do_clear_bss_loop>:
+  50:	1d 92       	st	X+, r1
+
+00000052 <.do_clear_bss_start>:
+  52:	a0 36       	cpi	r26, 0x60	; 96
+  54:	b1 07       	cpc	r27, r17
+  56:	e1 f7       	brne	.-8      	; 0x50 <.do_clear_bss_loop>
+  58:	52 d1       	rcall	.+676    	; 0x2fe <main>
+  5a:	58 c1       	rjmp	.+688    	; 0x30c <_exit>
+
+0000005c <__bad_interrupt>:
+  5c:	d1 cf       	rjmp	.-94     	; 0x0 <__vectors>
+
+0000005e <SPI_MasterInit>:
+
+#define uchar unsigned char
+#define uint  unsigned int
+
+void SPI_MasterInit(){
+  5e:	8c e2       	ldi	r24, 0x2C	; 44
+  60:	87 bb       	out	0x17, r24	; 23
+	/* 设置MOSI 和SCK、SS 为输出，其他为输入 */
+	DDR_SPI = (1<<DD_MOSI)|(1<<DD_SCK)|(1<<DD_SS);
+	/* 使能SPI 主机模式，设置时钟速率为fck/16 */
+	SPCR = (1<<SPE)|(1<<MSTR)|(1<<SPR0);
+  62:	81 e5       	ldi	r24, 0x51	; 81
+  64:	8d b9       	out	0x0d, r24	; 13
+	SPSR &= ~(1<<SPI2X);
+  66:	70 98       	cbi	0x0e, 0	; 14
+  68:	08 95       	ret
+
+0000006a <VS1003B_WriteByte>:
+}
+
+//向VS1003写一字节		//write one byte to vs1003
+uchar VS1003B_WriteByte(uchar cData){
+  6a:	8f b9       	out	0x0f, r24	; 15
+	SPDR = cData;
+	while(!(SPSR & (1<<SPIF)))
+  6c:	77 9b       	sbis	0x0e, 7	; 14
+  6e:	fe cf       	rjmp	.-4      	; 0x6c <VS1003B_WriteByte+0x2>
+		;
+	return SPDR;
+  70:	8f b1       	in	r24, 0x0f	; 15
+}
+  72:	99 27       	eor	r25, r25
+  74:	08 95       	ret
+
+00000076 <VS1003B_SPI_Low>:
+
+//以最低速度运行	//low speed
+void VS1003B_SPI_Low(void){
+  76:	83 e5       	ldi	r24, 0x53	; 83
+  78:	8d b9       	out	0x0d, r24	; 13
+	SPCR = (1<<SPE)|(1<<MSTR)|(1<<SPR1)|(1<<SPR0);
+	SPSR &= ~(1<<SPI2X);
+  7a:	70 98       	cbi	0x0e, 0	; 14
+  7c:	08 95       	ret
+
+0000007e <VS1003B_SPI_High>:
+}
+
+//以FCK/4速度运行	//full speed
+void VS1003B_SPI_High(void){
+  7e:	80 e5       	ldi	r24, 0x50	; 80
+  80:	8d b9       	out	0x0d, r24	; 13
+	SPCR = (1<<SPE)|(1<<MSTR);
+	SPSR |= (1<<SPI2X);
+  82:	70 9a       	sbi	0x0e, 0	; 14
+  84:	08 95       	ret
+
+00000086 <VS1003B_Delay>:
+}
+
+//延时		//delay
+void VS1003B_Delay(uint n){
+  86:	08 95       	ret
+
+00000088 <VS1003B_WriteCMD>:
+	while(n--)
+		;
+}
+
+//写寄存器，参数，地址和数据	//config register
+void VS1003B_WriteCMD(uchar addr,uint dat){
+  88:	98 2f       	mov	r25, r24
+	VS1003B_XDCS_H();
+  8a:	aa 9a       	sbi	0x15, 2	; 21
+	VS1003B_XCS_L();
+  8c:	a9 98       	cbi	0x15, 1	; 21
+  8e:	82 e0       	ldi	r24, 0x02	; 2
+  90:	8f b9       	out	0x0f, r24	; 15
+  92:	77 9b       	sbis	0x0e, 7	; 14
+  94:	fe cf       	rjmp	.-4      	; 0x92 <VS1003B_WriteCMD+0xa>
+  96:	8f b1       	in	r24, 0x0f	; 15
+  98:	9f b9       	out	0x0f, r25	; 15
+  9a:	77 9b       	sbis	0x0e, 7	; 14
+  9c:	fe cf       	rjmp	.-4      	; 0x9a <VS1003B_WriteCMD+0x12>
+  9e:	8f b1       	in	r24, 0x0f	; 15
+	VS1003B_WriteByte(0x02);
+	VS1003B_WriteByte(addr);
+	VS1003B_WriteByte(dat>>8);
+  a0:	87 2f       	mov	r24, r23
+  a2:	99 27       	eor	r25, r25
+  a4:	8f b9       	out	0x0f, r24	; 15
+  a6:	77 9b       	sbis	0x0e, 7	; 14
+  a8:	fe cf       	rjmp	.-4      	; 0xa6 <VS1003B_WriteCMD+0x1e>
+  aa:	8f b1       	in	r24, 0x0f	; 15
+  ac:	6f b9       	out	0x0f, r22	; 15
+  ae:	77 9b       	sbis	0x0e, 7	; 14
+  b0:	fe cf       	rjmp	.-4      	; 0xae <VS1003B_WriteCMD+0x26>
+  b2:	8f b1       	in	r24, 0x0f	; 15
+	VS1003B_WriteByte(dat);
+	VS1003B_XCS_H();
+  b4:	a9 9a       	sbi	0x15, 1	; 21
+  b6:	08 95       	ret
+
+000000b8 <VS1003B_ReadCMD>:
+}
+
+//读寄存器，参数 地址 返回内容	//read register
+uint VS1003B_ReadCMD(uchar addr){
+  b8:	98 2f       	mov	r25, r24
+	uint temp;
+	VS1003B_XDCS_H();
+  ba:	aa 9a       	sbi	0x15, 2	; 21
+	VS1003B_XCS_L();
+  bc:	a9 98       	cbi	0x15, 1	; 21
+  be:	83 e0       	ldi	r24, 0x03	; 3
+  c0:	8f b9       	out	0x0f, r24	; 15
+  c2:	77 9b       	sbis	0x0e, 7	; 14
+  c4:	fe cf       	rjmp	.-4      	; 0xc2 <VS1003B_ReadCMD+0xa>
+  c6:	8f b1       	in	r24, 0x0f	; 15
+  c8:	9f b9       	out	0x0f, r25	; 15
+  ca:	77 9b       	sbis	0x0e, 7	; 14
+  cc:	fe cf       	rjmp	.-4      	; 0xca <VS1003B_ReadCMD+0x12>
+  ce:	8f b1       	in	r24, 0x0f	; 15
+  d0:	8f ef       	ldi	r24, 0xFF	; 255
+  d2:	8f b9       	out	0x0f, r24	; 15
+  d4:	77 9b       	sbis	0x0e, 7	; 14
+  d6:	fe cf       	rjmp	.-4      	; 0xd4 <VS1003B_ReadCMD+0x1c>
+  d8:	9f b1       	in	r25, 0x0f	; 15
+  da:	8f ef       	ldi	r24, 0xFF	; 255
+  dc:	8f b9       	out	0x0f, r24	; 15
+  de:	77 9b       	sbis	0x0e, 7	; 14
+  e0:	fe cf       	rjmp	.-4      	; 0xde <VS1003B_ReadCMD+0x26>
+  e2:	2f b1       	in	r18, 0x0f	; 15
+	VS1003B_WriteByte(0x03);
+	VS1003B_WriteByte(addr);
+	temp = VS1003B_WriteByte(0xFF);
+  e4:	89 2f       	mov	r24, r25
+  e6:	99 27       	eor	r25, r25
+	temp <<= 8;
+  e8:	98 2f       	mov	r25, r24
+  ea:	88 27       	eor	r24, r24
+	temp += VS1003B_WriteByte(0xFF);
+	VS1003B_XCS_H();
+  ec:	a9 9a       	sbi	0x15, 1	; 21
+	return temp;
+}
+  ee:	82 0f       	add	r24, r18
+  f0:	91 1d       	adc	r25, r1
+  f2:	08 95       	ret
+
+000000f4 <VS1003B_WriteDAT>:
+
+//写数据，音乐数据		//write data (music data)
+void VS1003B_WriteDAT(uchar dat){
+  f4:	aa 98       	cbi	0x15, 2	; 21
+  f6:	8f b9       	out	0x0f, r24	; 15
+  f8:	77 9b       	sbis	0x0e, 7	; 14
+  fa:	fe cf       	rjmp	.-4      	; 0xf8 <VS1003B_WriteDAT+0x4>
+  fc:	8f b1       	in	r24, 0x0f	; 15
+	VS1003B_XDCS_L();
+	VS1003B_WriteByte(dat);
+	VS1003B_XDCS_H();
+  fe:	aa 9a       	sbi	0x15, 2	; 21
+	VS1003B_XCS_H();
+ 100:	a9 9a       	sbi	0x15, 1	; 21
+ 102:	08 95       	ret
+
+00000104 <VS1003_SineTest>:
+}
+
+uchar VS1003_SineTest()
+{
+ 104:	1f 93       	push	r17
+	uchar retry;
+	PORT_INI();
+ 106:	84 b3       	in	r24, 0x14	; 20
+ 108:	86 61       	ori	r24, 0x16	; 22
+ 10a:	84 bb       	out	0x14, r24	; 20
+	VS1003B_DDR &=~_BV(VS1003B_DREQ);
+ 10c:	a3 98       	cbi	0x14, 3	; 20
+	VS1003B_XCS_H();
+ 10e:	a9 9a       	sbi	0x15, 1	; 21
+	VS1003B_XCS_H();
+ 110:	a9 9a       	sbi	0x15, 1	; 21
+	VS1003B_XRESET_L();
+ 112:	ac 98       	cbi	0x15, 4	; 21
+	VS1003B_Delay(0xffff);
+	VS1003B_XRESET_H();//使能芯片	//chip select
+ 114:	ac 9a       	sbi	0x15, 4	; 21
+ 116:	83 e5       	ldi	r24, 0x53	; 83
+ 118:	8d b9       	out	0x0d, r24	; 13
+ 11a:	70 98       	cbi	0x0e, 0	; 14
+ 11c:	10 e0       	ldi	r17, 0x00	; 0
+ 11e:	08 c0       	rjmp	.+16     	; 0x130 <VS1003_SineTest+0x2c>
+	VS1003B_SPI_Low();//先以低频操作	//low speed
+	VS1003B_Delay(0xffff);//延时	//delay
+	VS1003B_Delay(0xffff);
+
+	retry=0;
+
+	while(VS1003B_ReadCMD(0x03) != 0xc000){//写时钟寄存器	//set PLL register
+		VS1003B_WriteCMD(0x03,0xc000);
+ 120:	60 e0       	ldi	r22, 0x00	; 0
+ 122:	70 ec       	ldi	r23, 0xC0	; 192
+ 124:	83 e0       	ldi	r24, 0x03	; 3
+ 126:	b0 df       	rcall	.-160    	; 0x88 <VS1003B_WriteCMD>
+		if(retry++ > 10)
+ 128:	1b 30       	cpi	r17, 0x0B	; 11
+ 12a:	09 f4       	brne	.+2      	; 0x12e <VS1003_SineTest+0x2a>
+ 12c:	4f c0       	rjmp	.+158    	; 0x1cc <VS1003_SineTest+0xc8>
+ 12e:	1f 5f       	subi	r17, 0xFF	; 255
+ 130:	83 e0       	ldi	r24, 0x03	; 3
+ 132:	c2 df       	rcall	.-124    	; 0xb8 <VS1003B_ReadCMD>
+ 134:	80 50       	subi	r24, 0x00	; 0
+ 136:	90 4c       	sbci	r25, 0xC0	; 192
+ 138:	99 f7       	brne	.-26     	; 0x120 <VS1003_SineTest+0x1c>
+			return 1;
+	}
+
+	VS1003B_Delay(0xffff);
+
+	VS1003B_WriteCMD(0x05,0x000a);
+ 13a:	6a e0       	ldi	r22, 0x0A	; 10
+ 13c:	70 e0       	ldi	r23, 0x00	; 0
+ 13e:	85 e0       	ldi	r24, 0x05	; 5
+ 140:	a3 df       	rcall	.-186    	; 0x88 <VS1003B_WriteCMD>
+ 142:	10 e0       	ldi	r17, 0x00	; 0
+ 144:	08 c0       	rjmp	.+16     	; 0x156 <VS1003_SineTest+0x52>
+	
+	retry=0;
+	while(VS1003B_ReadCMD(0x0b) != 0xfefe){//设音量	//set Volume
+		VS1003B_WriteCMD(0x0b,0xfefe);
+ 146:	6e ef       	ldi	r22, 0xFE	; 254
+ 148:	7e ef       	ldi	r23, 0xFE	; 254
+ 14a:	8b e0       	ldi	r24, 0x0B	; 11
+ 14c:	9d df       	rcall	.-198    	; 0x88 <VS1003B_WriteCMD>
+		if(retry++ > 10)
+ 14e:	1b 30       	cpi	r17, 0x0B	; 11
+ 150:	09 f4       	brne	.+2      	; 0x154 <VS1003_SineTest+0x50>
+ 152:	3c c0       	rjmp	.+120    	; 0x1cc <VS1003_SineTest+0xc8>
+ 154:	1f 5f       	subi	r17, 0xFF	; 255
+ 156:	8b e0       	ldi	r24, 0x0B	; 11
+ 158:	af df       	rcall	.-162    	; 0xb8 <VS1003B_ReadCMD>
+ 15a:	8e 5f       	subi	r24, 0xFE	; 254
+ 15c:	9e 4f       	sbci	r25, 0xFE	; 254
+ 15e:	99 f7       	brne	.-26     	; 0x146 <VS1003_SineTest+0x42>
+			return 1;
+	}
+
+
+	VS1003B_WriteCMD(0x05,0xac45);
+ 160:	65 e4       	ldi	r22, 0x45	; 69
+ 162:	7c ea       	ldi	r23, 0xAC	; 172
+ 164:	85 e0       	ldi	r24, 0x05	; 5
+ 166:	90 df       	rcall	.-224    	; 0x88 <VS1003B_WriteCMD>
+ 168:	10 e0       	ldi	r17, 0x00	; 0
+ 16a:	07 c0       	rjmp	.+14     	; 0x17a <VS1003_SineTest+0x76>
+
+	retry=0;
+	while(VS1003B_ReadCMD(0x0b) != 0x2828){//设音量	//set Volume
+		VS1003B_WriteCMD(0x0b,0x2828);
+ 16c:	68 e2       	ldi	r22, 0x28	; 40
+ 16e:	78 e2       	ldi	r23, 0x28	; 40
+ 170:	8b e0       	ldi	r24, 0x0B	; 11
+ 172:	8a df       	rcall	.-236    	; 0x88 <VS1003B_WriteCMD>
+		if(retry++ > 10)
+ 174:	1b 30       	cpi	r17, 0x0B	; 11
+ 176:	51 f1       	breq	.+84     	; 0x1cc <VS1003_SineTest+0xc8>
+ 178:	1f 5f       	subi	r17, 0xFF	; 255
+ 17a:	8b e0       	ldi	r24, 0x0B	; 11
+ 17c:	9d df       	rcall	.-198    	; 0xb8 <VS1003B_ReadCMD>
+ 17e:	88 52       	subi	r24, 0x28	; 40
+ 180:	98 42       	sbci	r25, 0x28	; 40
+ 182:	a1 f7       	brne	.-24     	; 0x16c <VS1003_SineTest+0x68>
+ 184:	10 e0       	ldi	r17, 0x00	; 0
+ 186:	07 c0       	rjmp	.+14     	; 0x196 <VS1003_SineTest+0x92>
+			return 1;
+	}
+
+	retry=0;
+	while(VS1003B_ReadCMD(0x00) != 0x0820){//写mode寄存器	//set mode register
+		VS1003B_WriteCMD(0x00,0x0820);
+ 188:	60 e2       	ldi	r22, 0x20	; 32
+ 18a:	78 e0       	ldi	r23, 0x08	; 8
+ 18c:	80 e0       	ldi	r24, 0x00	; 0
+ 18e:	7c df       	rcall	.-264    	; 0x88 <VS1003B_WriteCMD>
+		if(retry++ > 10)
+ 190:	1b 30       	cpi	r17, 0x0B	; 11
+ 192:	e1 f0       	breq	.+56     	; 0x1cc <VS1003_SineTest+0xc8>
+ 194:	1f 5f       	subi	r17, 0xFF	; 255
+ 196:	80 e0       	ldi	r24, 0x00	; 0
+ 198:	8f df       	rcall	.-226    	; 0xb8 <VS1003B_ReadCMD>
+ 19a:	80 52       	subi	r24, 0x20	; 32
+ 19c:	98 40       	sbci	r25, 0x08	; 8
+ 19e:	a1 f7       	brne	.-24     	; 0x188 <VS1003_SineTest+0x84>
+ 1a0:	80 e5       	ldi	r24, 0x50	; 80
+ 1a2:	8d b9       	out	0x0d, r24	; 13
+ 1a4:	70 9a       	sbi	0x0e, 0	; 14
+			return 1;
+	}
+
+	VS1003B_Delay(0xffff);
+
+	VS1003B_SPI_High();//提高速度，全速运行		//turn to high speed
+	
+
+	VS1003B_WriteDAT(0x53);
+ 1a6:	83 e5       	ldi	r24, 0x53	; 83
+ 1a8:	a5 df       	rcall	.-182    	; 0xf4 <VS1003B_WriteDAT>
+	VS1003B_WriteDAT(0xEF);
+ 1aa:	8f ee       	ldi	r24, 0xEF	; 239
+ 1ac:	a3 df       	rcall	.-186    	; 0xf4 <VS1003B_WriteDAT>
+	VS1003B_WriteDAT(0x6E);
+ 1ae:	8e e6       	ldi	r24, 0x6E	; 110
+ 1b0:	a1 df       	rcall	.-190    	; 0xf4 <VS1003B_WriteDAT>
+	VS1003B_WriteDAT(0x7E);
+ 1b2:	8e e7       	ldi	r24, 0x7E	; 126
+ 1b4:	9f df       	rcall	.-194    	; 0xf4 <VS1003B_WriteDAT>
+	VS1003B_WriteDAT(0x00);
+ 1b6:	80 e0       	ldi	r24, 0x00	; 0
+ 1b8:	9d df       	rcall	.-198    	; 0xf4 <VS1003B_WriteDAT>
+	VS1003B_WriteDAT(0x00);
+ 1ba:	80 e0       	ldi	r24, 0x00	; 0
+ 1bc:	9b df       	rcall	.-202    	; 0xf4 <VS1003B_WriteDAT>
+	VS1003B_WriteDAT(0x00);
+ 1be:	80 e0       	ldi	r24, 0x00	; 0
+ 1c0:	99 df       	rcall	.-206    	; 0xf4 <VS1003B_WriteDAT>
+	VS1003B_WriteDAT(0x00);
+ 1c2:	80 e0       	ldi	r24, 0x00	; 0
+ 1c4:	97 df       	rcall	.-210    	; 0xf4 <VS1003B_WriteDAT>
+ 1c6:	80 e0       	ldi	r24, 0x00	; 0
+ 1c8:	90 e0       	ldi	r25, 0x00	; 0
+ 1ca:	02 c0       	rjmp	.+4      	; 0x1d0 <VS1003_SineTest+0xcc>
+	return 0;
+ 1cc:	81 e0       	ldi	r24, 0x01	; 1
+ 1ce:	90 e0       	ldi	r25, 0x00	; 0
+ 1d0:	1f 91       	pop	r17
+ 1d2:	08 95       	ret
+
+000001d4 <VS1003B_SoftReset>:
+}
+
+unsigned char VS1003_SineTest1(){
+	unsigned char retry;
+	PORT_INI();
+	VS1003B_DDR &=~_BV(VS1003B_DREQ);
+	VS1003B_XCS_H();
+	VS1003B_XCS_H();
+	VS1003B_XRESET_L();
+	VS1003B_Delay(0xffff);
+	VS1003B_XRESET_H();//使能芯片	//chip select
+	VS1003B_SPI_Low();//先以低频操作	//low speed
+	VS1003B_Delay(0xffff);//延时	//delay
+	VS1003B_Delay(0xffff);
+//	WaitDRQ(10000);
+
+
+	retry=0;
+	while(VS1003B_ReadCMD(0x00) != 0x0820)//写mode寄存器	//set mode register
+	{
+		VS1003B_WriteCMD(0x00,0x0820);
+		if(retry++ >10 )return 1;//
+	}	
+
+	VS1003B_Delay(0xffff);
+	VS1003B_Delay(0xffff);	
+
+	retry=0;
+	while(VS1003B_ReadCMD(0x03) != 0xc000)//写时钟寄存器	//set PLL register
+	{
+		VS1003B_WriteCMD(0x03,0xc000);
+		if(retry++ >10 )return 1;
+	}
+
+	VS1003B_Delay(0xffff);
+	VS1003B_Delay(0xffff);
+	
+
+	retry=0;
+	while(VS1003B_ReadCMD(0x0b) != DefaultVolume)//设音量	//set Volume
+	{
+		VS1003B_WriteCMD(0x0b,DefaultVolume);
+		if(retry++ >10 )return 1;
+	}
+
+
+	VS1003B_Delay(0xffff);
+	VS1003B_Delay(0xffff);
+
+	VS1003B_SPI_High();//提高速度，全速运行		//turn to high speed
+	
+
+	VS1003B_WriteDAT(0x53);
+	VS1003B_WriteDAT(0xEF);
+	VS1003B_WriteDAT(0x6E);
+	VS1003B_WriteDAT(0x7E);
+	VS1003B_WriteDAT(0x00);
+	VS1003B_WriteDAT(0x00);
+	VS1003B_WriteDAT(0x00);
+	VS1003B_WriteDAT(0x00);
+	return 0;
+}
+
+
+//VS1003初始化，0成功 1失败	//initialize VS1003
+unsigned char VS1003B_Init(){
+	unsigned char retry;
+	PORT_INI();
+	VS1003B_DDR &=~_BV(VS1003B_DREQ);
+	VS1003B_XCS_H();
+	VS1003B_XCS_H();
+	VS1003B_XRESET_L();
+	VS1003B_Delay(0xffff);
+	VS1003B_XRESET_H();//使能芯片	//chip select
+	VS1003B_SPI_Low();//先以低频操作	//low speed
+	VS1003B_Delay(0xffff);//延时	//delay
+	retry=0;
+	while(VS1003B_ReadCMD(0x00) != 0x0800)//写mode寄存器	//set mode register
+	{
+		VS1003B_WriteCMD(0x00,0x0800);
+		if(retry++ >10 )return 1;//
+	}
+	retry=0;
+	while(VS1003B_ReadCMD(0x03) != 0xc000)//写时钟寄存器	//set PLL register
+	{
+		VS1003B_WriteCMD(0x03,0xc000);
+		if(retry++ >10 )return 1;
+	}
+	retry=0;
+	while(VS1003B_ReadCMD(0x0b) != DefaultVolume)//设音量	//set Volume
+	{
+		VS1003B_WriteCMD(0x0b,DefaultVolume);
+		if(retry++ >10 )return 1;
+	}
+	VS1003B_SPI_High();//提高速度，全速运行		//turn to high speed
+	return 0;
+}
+
+//VS1003软件复位	//VS1003 soft reset
+void VS1003B_SoftReset(){
+ 1d4:	64 e0       	ldi	r22, 0x04	; 4
+ 1d6:	78 e0       	ldi	r23, 0x08	; 8
+ 1d8:	80 e0       	ldi	r24, 0x00	; 0
+ 1da:	56 df       	rcall	.-340    	; 0x88 <VS1003B_WriteCMD>
+ 1dc:	08 95       	ret
+
+000001de <VS1003B_Init>:
+ 1de:	1f 93       	push	r17
+ 1e0:	84 b3       	in	r24, 0x14	; 20
+ 1e2:	86 61       	ori	r24, 0x16	; 22
+ 1e4:	84 bb       	out	0x14, r24	; 20
+ 1e6:	a3 98       	cbi	0x14, 3	; 20
+ 1e8:	a9 9a       	sbi	0x15, 1	; 21
+ 1ea:	a9 9a       	sbi	0x15, 1	; 21
+ 1ec:	ac 98       	cbi	0x15, 4	; 21
+ 1ee:	ac 9a       	sbi	0x15, 4	; 21
+ 1f0:	83 e5       	ldi	r24, 0x53	; 83
+ 1f2:	8d b9       	out	0x0d, r24	; 13
+ 1f4:	70 98       	cbi	0x0e, 0	; 14
+ 1f6:	10 e0       	ldi	r17, 0x00	; 0
+ 1f8:	07 c0       	rjmp	.+14     	; 0x208 <VS1003B_Init+0x2a>
+ 1fa:	60 e0       	ldi	r22, 0x00	; 0
+ 1fc:	78 e0       	ldi	r23, 0x08	; 8
+ 1fe:	80 e0       	ldi	r24, 0x00	; 0
+ 200:	43 df       	rcall	.-378    	; 0x88 <VS1003B_WriteCMD>
+ 202:	1b 30       	cpi	r17, 0x0B	; 11
+ 204:	41 f1       	breq	.+80     	; 0x256 <VS1003B_Init+0x78>
+ 206:	1f 5f       	subi	r17, 0xFF	; 255
+ 208:	80 e0       	ldi	r24, 0x00	; 0
+ 20a:	56 df       	rcall	.-340    	; 0xb8 <VS1003B_ReadCMD>
+ 20c:	80 50       	subi	r24, 0x00	; 0
+ 20e:	98 40       	sbci	r25, 0x08	; 8
+ 210:	a1 f7       	brne	.-24     	; 0x1fa <VS1003B_Init+0x1c>
+ 212:	10 e0       	ldi	r17, 0x00	; 0
+ 214:	07 c0       	rjmp	.+14     	; 0x224 <VS1003B_Init+0x46>
+ 216:	60 e0       	ldi	r22, 0x00	; 0
+ 218:	70 ec       	ldi	r23, 0xC0	; 192
+ 21a:	83 e0       	ldi	r24, 0x03	; 3
+ 21c:	35 df       	rcall	.-406    	; 0x88 <VS1003B_WriteCMD>
+ 21e:	1b 30       	cpi	r17, 0x0B	; 11
+ 220:	d1 f0       	breq	.+52     	; 0x256 <VS1003B_Init+0x78>
+ 222:	1f 5f       	subi	r17, 0xFF	; 255
+ 224:	83 e0       	ldi	r24, 0x03	; 3
+ 226:	48 df       	rcall	.-368    	; 0xb8 <VS1003B_ReadCMD>
+ 228:	80 50       	subi	r24, 0x00	; 0
+ 22a:	90 4c       	sbci	r25, 0xC0	; 192
+ 22c:	a1 f7       	brne	.-24     	; 0x216 <VS1003B_Init+0x38>
+ 22e:	10 e0       	ldi	r17, 0x00	; 0
+ 230:	07 c0       	rjmp	.+14     	; 0x240 <VS1003B_Init+0x62>
+ 232:	68 e2       	ldi	r22, 0x28	; 40
+ 234:	78 e2       	ldi	r23, 0x28	; 40
+ 236:	8b e0       	ldi	r24, 0x0B	; 11
+ 238:	27 df       	rcall	.-434    	; 0x88 <VS1003B_WriteCMD>
+ 23a:	1b 30       	cpi	r17, 0x0B	; 11
+ 23c:	61 f0       	breq	.+24     	; 0x256 <VS1003B_Init+0x78>
+ 23e:	1f 5f       	subi	r17, 0xFF	; 255
+ 240:	8b e0       	ldi	r24, 0x0B	; 11
+ 242:	3a df       	rcall	.-396    	; 0xb8 <VS1003B_ReadCMD>
+ 244:	88 52       	subi	r24, 0x28	; 40
+ 246:	98 42       	sbci	r25, 0x28	; 40
+ 248:	a1 f7       	brne	.-24     	; 0x232 <VS1003B_Init+0x54>
+ 24a:	80 e5       	ldi	r24, 0x50	; 80
+ 24c:	8d b9       	out	0x0d, r24	; 13
+ 24e:	70 9a       	sbi	0x0e, 0	; 14
+ 250:	80 e0       	ldi	r24, 0x00	; 0
+ 252:	90 e0       	ldi	r25, 0x00	; 0
+ 254:	02 c0       	rjmp	.+4      	; 0x25a <VS1003B_Init+0x7c>
+ 256:	81 e0       	ldi	r24, 0x01	; 1
+ 258:	90 e0       	ldi	r25, 0x00	; 0
+ 25a:	1f 91       	pop	r17
+ 25c:	08 95       	ret
+
+0000025e <VS1003_SineTest1>:
+ 25e:	1f 93       	push	r17
+ 260:	84 b3       	in	r24, 0x14	; 20
+ 262:	86 61       	ori	r24, 0x16	; 22
+ 264:	84 bb       	out	0x14, r24	; 20
+ 266:	a3 98       	cbi	0x14, 3	; 20
+ 268:	a9 9a       	sbi	0x15, 1	; 21
+ 26a:	a9 9a       	sbi	0x15, 1	; 21
+ 26c:	ac 98       	cbi	0x15, 4	; 21
+ 26e:	ac 9a       	sbi	0x15, 4	; 21
+ 270:	83 e5       	ldi	r24, 0x53	; 83
+ 272:	8d b9       	out	0x0d, r24	; 13
+ 274:	70 98       	cbi	0x0e, 0	; 14
+ 276:	10 e0       	ldi	r17, 0x00	; 0
+ 278:	07 c0       	rjmp	.+14     	; 0x288 <VS1003_SineTest1+0x2a>
+ 27a:	60 e2       	ldi	r22, 0x20	; 32
+ 27c:	78 e0       	ldi	r23, 0x08	; 8
+ 27e:	80 e0       	ldi	r24, 0x00	; 0
+ 280:	03 df       	rcall	.-506    	; 0x88 <VS1003B_WriteCMD>
+ 282:	1b 30       	cpi	r17, 0x0B	; 11
+ 284:	c1 f1       	breq	.+112    	; 0x2f6 <VS1003_SineTest1+0x98>
+ 286:	1f 5f       	subi	r17, 0xFF	; 255
+ 288:	80 e0       	ldi	r24, 0x00	; 0
+ 28a:	16 df       	rcall	.-468    	; 0xb8 <VS1003B_ReadCMD>
+ 28c:	80 52       	subi	r24, 0x20	; 32
+ 28e:	98 40       	sbci	r25, 0x08	; 8
+ 290:	a1 f7       	brne	.-24     	; 0x27a <VS1003_SineTest1+0x1c>
+ 292:	10 e0       	ldi	r17, 0x00	; 0
+ 294:	07 c0       	rjmp	.+14     	; 0x2a4 <VS1003_SineTest1+0x46>
+ 296:	60 e0       	ldi	r22, 0x00	; 0
+ 298:	70 ec       	ldi	r23, 0xC0	; 192
+ 29a:	83 e0       	ldi	r24, 0x03	; 3
+ 29c:	f5 de       	rcall	.-534    	; 0x88 <VS1003B_WriteCMD>
+ 29e:	1b 30       	cpi	r17, 0x0B	; 11
+ 2a0:	51 f1       	breq	.+84     	; 0x2f6 <VS1003_SineTest1+0x98>
+ 2a2:	1f 5f       	subi	r17, 0xFF	; 255
+ 2a4:	83 e0       	ldi	r24, 0x03	; 3
+ 2a6:	08 df       	rcall	.-496    	; 0xb8 <VS1003B_ReadCMD>
+ 2a8:	80 50       	subi	r24, 0x00	; 0
+ 2aa:	90 4c       	sbci	r25, 0xC0	; 192
+ 2ac:	a1 f7       	brne	.-24     	; 0x296 <VS1003_SineTest1+0x38>
+ 2ae:	10 e0       	ldi	r17, 0x00	; 0
+ 2b0:	07 c0       	rjmp	.+14     	; 0x2c0 <VS1003_SineTest1+0x62>
+ 2b2:	68 e2       	ldi	r22, 0x28	; 40
+ 2b4:	78 e2       	ldi	r23, 0x28	; 40
+ 2b6:	8b e0       	ldi	r24, 0x0B	; 11
+ 2b8:	e7 de       	rcall	.-562    	; 0x88 <VS1003B_WriteCMD>
+ 2ba:	1b 30       	cpi	r17, 0x0B	; 11
+ 2bc:	e1 f0       	breq	.+56     	; 0x2f6 <VS1003_SineTest1+0x98>
+ 2be:	1f 5f       	subi	r17, 0xFF	; 255
+ 2c0:	8b e0       	ldi	r24, 0x0B	; 11
+ 2c2:	fa de       	rcall	.-524    	; 0xb8 <VS1003B_ReadCMD>
+ 2c4:	88 52       	subi	r24, 0x28	; 40
+ 2c6:	98 42       	sbci	r25, 0x28	; 40
+ 2c8:	a1 f7       	brne	.-24     	; 0x2b2 <VS1003_SineTest1+0x54>
+ 2ca:	80 e5       	ldi	r24, 0x50	; 80
+ 2cc:	8d b9       	out	0x0d, r24	; 13
+ 2ce:	70 9a       	sbi	0x0e, 0	; 14
+ 2d0:	83 e5       	ldi	r24, 0x53	; 83
+ 2d2:	10 df       	rcall	.-480    	; 0xf4 <VS1003B_WriteDAT>
+ 2d4:	8f ee       	ldi	r24, 0xEF	; 239
+ 2d6:	0e df       	rcall	.-484    	; 0xf4 <VS1003B_WriteDAT>
+ 2d8:	8e e6       	ldi	r24, 0x6E	; 110
+ 2da:	0c df       	rcall	.-488    	; 0xf4 <VS1003B_WriteDAT>
+ 2dc:	8e e7       	ldi	r24, 0x7E	; 126
+ 2de:	0a df       	rcall	.-492    	; 0xf4 <VS1003B_WriteDAT>
+ 2e0:	80 e0       	ldi	r24, 0x00	; 0
+ 2e2:	08 df       	rcall	.-496    	; 0xf4 <VS1003B_WriteDAT>
+ 2e4:	80 e0       	ldi	r24, 0x00	; 0
+ 2e6:	06 df       	rcall	.-500    	; 0xf4 <VS1003B_WriteDAT>
+ 2e8:	80 e0       	ldi	r24, 0x00	; 0
+ 2ea:	04 df       	rcall	.-504    	; 0xf4 <VS1003B_WriteDAT>
+ 2ec:	80 e0       	ldi	r24, 0x00	; 0
+ 2ee:	02 df       	rcall	.-508    	; 0xf4 <VS1003B_WriteDAT>
+ 2f0:	80 e0       	ldi	r24, 0x00	; 0
+ 2f2:	90 e0       	ldi	r25, 0x00	; 0
+ 2f4:	02 c0       	rjmp	.+4      	; 0x2fa <VS1003_SineTest1+0x9c>
+ 2f6:	81 e0       	ldi	r24, 0x01	; 1
+ 2f8:	90 e0       	ldi	r25, 0x00	; 0
+ 2fa:	1f 91       	pop	r17
+ 2fc:	08 95       	ret
+
+000002fe <main>:
+	VS1003B_WriteCMD(0x00,0x0804);//写复位		//reset
+	VS1003B_Delay(0xffff);//延时，至少1.35ms //wait at least 1.35ms
+}
+
+
+
+int main(){
+ 2fe:	8c e2       	ldi	r24, 0x2C	; 44
+ 300:	87 bb       	out	0x17, r24	; 23
+ 302:	81 e5       	ldi	r24, 0x51	; 81
+ 304:	8d b9       	out	0x0d, r24	; 13
+ 306:	70 98       	cbi	0x0e, 0	; 14
+	SPI_MasterInit();
+	VS1003_SineTest();
+ 308:	fd de       	rcall	.-518    	; 0x104 <VS1003_SineTest>
+ 30a:	ff cf       	rjmp	.-2      	; 0x30a <main+0xc>
+
+0000030c <_exit>:
+ 30c:	ff cf       	rjmp	.-2      	; 0x30c <_exit>

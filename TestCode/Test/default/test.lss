@@ -1,0 +1,220 @@
+
+test.elf:     file format elf32-avr
+
+Sections:
+Idx Name          Size      VMA       LMA       File off  Algn
+  0 .text         000000e2  00000000  00000000  00000054  2**1
+                  CONTENTS, ALLOC, LOAD, READONLY, CODE
+  1 .stab         00000378  00000000  00000000  00000138  2**2
+                  CONTENTS, READONLY, DEBUGGING
+  2 .stabstr      00000071  00000000  00000000  000004b0  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  3 .debug_aranges 00000020  00000000  00000000  00000521  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  4 .debug_pubnames 00000032  00000000  00000000  00000541  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  5 .debug_info   00000160  00000000  00000000  00000573  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  6 .debug_abbrev 000000f5  00000000  00000000  000006d3  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  7 .debug_line   00000187  00000000  00000000  000007c8  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  8 .debug_frame  00000040  00000000  00000000  00000950  2**2
+                  CONTENTS, READONLY, DEBUGGING
+  9 .debug_str    000000f2  00000000  00000000  00000990  2**0
+                  CONTENTS, READONLY, DEBUGGING
+ 10 .debug_loc    0000005e  00000000  00000000  00000a82  2**0
+                  CONTENTS, READONLY, DEBUGGING
+Disassembly of section .text:
+
+00000000 <__vectors>:
+   0:	12 c0       	rjmp	.+36     	; 0x26 <__ctors_end>
+   2:	2c c0       	rjmp	.+88     	; 0x5c <__bad_interrupt>
+   4:	2b c0       	rjmp	.+86     	; 0x5c <__bad_interrupt>
+   6:	2a c0       	rjmp	.+84     	; 0x5c <__bad_interrupt>
+   8:	29 c0       	rjmp	.+82     	; 0x5c <__bad_interrupt>
+   a:	28 c0       	rjmp	.+80     	; 0x5c <__bad_interrupt>
+   c:	27 c0       	rjmp	.+78     	; 0x5c <__bad_interrupt>
+   e:	26 c0       	rjmp	.+76     	; 0x5c <__bad_interrupt>
+  10:	25 c0       	rjmp	.+74     	; 0x5c <__bad_interrupt>
+  12:	24 c0       	rjmp	.+72     	; 0x5c <__bad_interrupt>
+  14:	23 c0       	rjmp	.+70     	; 0x5c <__bad_interrupt>
+  16:	22 c0       	rjmp	.+68     	; 0x5c <__bad_interrupt>
+  18:	21 c0       	rjmp	.+66     	; 0x5c <__bad_interrupt>
+  1a:	20 c0       	rjmp	.+64     	; 0x5c <__bad_interrupt>
+  1c:	1f c0       	rjmp	.+62     	; 0x5c <__bad_interrupt>
+  1e:	1e c0       	rjmp	.+60     	; 0x5c <__bad_interrupt>
+  20:	1d c0       	rjmp	.+58     	; 0x5c <__bad_interrupt>
+  22:	1c c0       	rjmp	.+56     	; 0x5c <__bad_interrupt>
+  24:	1b c0       	rjmp	.+54     	; 0x5c <__bad_interrupt>
+
+00000026 <__ctors_end>:
+  26:	11 24       	eor	r1, r1
+  28:	1f be       	out	0x3f, r1	; 63
+  2a:	cf e5       	ldi	r28, 0x5F	; 95
+  2c:	d4 e0       	ldi	r29, 0x04	; 4
+  2e:	de bf       	out	0x3e, r29	; 62
+  30:	cd bf       	out	0x3d, r28	; 61
+
+00000032 <__do_copy_data>:
+  32:	10 e0       	ldi	r17, 0x00	; 0
+  34:	a0 e6       	ldi	r26, 0x60	; 96
+  36:	b0 e0       	ldi	r27, 0x00	; 0
+  38:	e2 ee       	ldi	r30, 0xE2	; 226
+  3a:	f0 e0       	ldi	r31, 0x00	; 0
+  3c:	02 c0       	rjmp	.+4      	; 0x42 <.do_copy_data_start>
+
+0000003e <.do_copy_data_loop>:
+  3e:	05 90       	lpm	r0, Z+
+  40:	0d 92       	st	X+, r0
+
+00000042 <.do_copy_data_start>:
+  42:	a0 36       	cpi	r26, 0x60	; 96
+  44:	b1 07       	cpc	r27, r17
+  46:	d9 f7       	brne	.-10     	; 0x3e <.do_copy_data_loop>
+
+00000048 <__do_clear_bss>:
+  48:	10 e0       	ldi	r17, 0x00	; 0
+  4a:	a0 e6       	ldi	r26, 0x60	; 96
+  4c:	b0 e0       	ldi	r27, 0x00	; 0
+  4e:	01 c0       	rjmp	.+2      	; 0x52 <.do_clear_bss_start>
+
+00000050 <.do_clear_bss_loop>:
+  50:	1d 92       	st	X+, r1
+
+00000052 <.do_clear_bss_start>:
+  52:	a0 36       	cpi	r26, 0x60	; 96
+  54:	b1 07       	cpc	r27, r17
+  56:	e1 f7       	brne	.-8      	; 0x50 <.do_clear_bss_loop>
+  58:	2c d0       	rcall	.+88     	; 0xb2 <main>
+  5a:	42 c0       	rjmp	.+132    	; 0xe0 <_exit>
+
+0000005c <__bad_interrupt>:
+  5c:	d1 cf       	rjmp	.-94     	; 0x0 <__vectors>
+
+0000005e <MyDelay>:
+#define KEY5	PD7
+
+uchar GetKey();
+
+void MyDelay(uint ms){
+  5e:	9c 01       	movw	r18, r24
+  60:	e0 ed       	ldi	r30, 0xD0	; 208
+  62:	f7 e0       	ldi	r31, 0x07	; 7
+  64:	03 c0       	rjmp	.+6      	; 0x6c <MyDelay+0xe>
+ */
+void
+_delay_loop_2(uint16_t __count)
+{
+	__asm__ volatile (
+  66:	cf 01       	movw	r24, r30
+  68:	01 97       	sbiw	r24, 0x01	; 1
+  6a:	f1 f7       	brne	.-4      	; 0x68 <MyDelay+0xa>
+	while(ms--)
+  6c:	21 50       	subi	r18, 0x01	; 1
+  6e:	30 40       	sbci	r19, 0x00	; 0
+  70:	8f ef       	ldi	r24, 0xFF	; 255
+  72:	2f 3f       	cpi	r18, 0xFF	; 255
+  74:	38 07       	cpc	r19, r24
+  76:	b9 f7       	brne	.-18     	; 0x66 <MyDelay+0x8>
+  78:	08 95       	ret
+
+0000007a <GetKey>:
+		_delay_ms(1);
+}
+
+int main(){
+	uchar tmp;
+	LEDDDR|=(1<<LED1)|(1<<LED2)|(1<<LED3);//LED端口设为输出
+	KEYDDR&=~((1<<KEY1)|(1<<KEY2)|(1<<KEY3)|(1<<KEY4)|(1<<KEY5));//按键端口设为输入
+	while(1){
+		LEDPORT|=(1<<LED1);
+		LEDPORT|=(1<<LED2);
+		LEDPORT|=(1<<LED3);
+		MyDelay(500);
+		LEDPORT&=~(1<<LED1);
+		LEDPORT&=~(1<<LED2);
+		LEDPORT&=~(1<<LED3);
+		MyDelay(500);
+		tmp=GetKey();
+		if(tmp!=0){
+			LEDPORT=tmp;
+		}
+	}
+	return 0;
+}
+
+uchar GetKey(){
+  7a:	83 99       	sbic	0x10, 3	; 16
+  7c:	03 c0       	rjmp	.+6      	; 0x84 <GetKey+0xa>
+	if( (KEYPIN&(1<<KEY1))==0 ){
+  7e:	81 e0       	ldi	r24, 0x01	; 1
+  80:	90 e0       	ldi	r25, 0x00	; 0
+  82:	08 95       	ret
+		return 1;
+	}
+	if( (KEYPIN&(1<<KEY2))==0 ){
+  84:	84 99       	sbic	0x10, 4	; 16
+  86:	03 c0       	rjmp	.+6      	; 0x8e <GetKey+0x14>
+  88:	82 e0       	ldi	r24, 0x02	; 2
+  8a:	90 e0       	ldi	r25, 0x00	; 0
+  8c:	08 95       	ret
+		return 2;
+	}
+	if( (KEYPIN&(1<<KEY3))==0 ){
+  8e:	85 99       	sbic	0x10, 5	; 16
+  90:	03 c0       	rjmp	.+6      	; 0x98 <GetKey+0x1e>
+  92:	83 e0       	ldi	r24, 0x03	; 3
+  94:	90 e0       	ldi	r25, 0x00	; 0
+  96:	08 95       	ret
+		return 3;
+	}
+	if( (KEYPIN&(1<<KEY4))==0 ){
+  98:	86 99       	sbic	0x10, 6	; 16
+  9a:	03 c0       	rjmp	.+6      	; 0xa2 <GetKey+0x28>
+  9c:	84 e0       	ldi	r24, 0x04	; 4
+  9e:	90 e0       	ldi	r25, 0x00	; 0
+  a0:	08 95       	ret
+		return 4;
+	}
+	if( (KEYPIN&(1<<KEY4))==0 ){
+  a2:	86 99       	sbic	0x10, 6	; 16
+  a4:	03 c0       	rjmp	.+6      	; 0xac <GetKey+0x32>
+  a6:	85 e0       	ldi	r24, 0x05	; 5
+  a8:	90 e0       	ldi	r25, 0x00	; 0
+  aa:	08 95       	ret
+  ac:	80 e0       	ldi	r24, 0x00	; 0
+  ae:	90 e0       	ldi	r25, 0x00	; 0
+		return 5;
+	}
+	return 0;
+}
+  b0:	08 95       	ret
+
+000000b2 <main>:
+  b2:	81 b3       	in	r24, 0x11	; 17
+  b4:	87 60       	ori	r24, 0x07	; 7
+  b6:	81 bb       	out	0x11, r24	; 17
+  b8:	81 b3       	in	r24, 0x11	; 17
+  ba:	87 70       	andi	r24, 0x07	; 7
+  bc:	81 bb       	out	0x11, r24	; 17
+  be:	90 9a       	sbi	0x12, 0	; 18
+  c0:	91 9a       	sbi	0x12, 1	; 18
+  c2:	92 9a       	sbi	0x12, 2	; 18
+  c4:	84 ef       	ldi	r24, 0xF4	; 244
+  c6:	91 e0       	ldi	r25, 0x01	; 1
+  c8:	ca df       	rcall	.-108    	; 0x5e <MyDelay>
+  ca:	90 98       	cbi	0x12, 0	; 18
+  cc:	91 98       	cbi	0x12, 1	; 18
+  ce:	92 98       	cbi	0x12, 2	; 18
+  d0:	84 ef       	ldi	r24, 0xF4	; 244
+  d2:	91 e0       	ldi	r25, 0x01	; 1
+  d4:	c4 df       	rcall	.-120    	; 0x5e <MyDelay>
+  d6:	d1 df       	rcall	.-94     	; 0x7a <GetKey>
+  d8:	88 23       	and	r24, r24
+  da:	89 f3       	breq	.-30     	; 0xbe <main+0xc>
+  dc:	82 bb       	out	0x12, r24	; 18
+  de:	ef cf       	rjmp	.-34     	; 0xbe <main+0xc>
+
+000000e0 <_exit>:
+  e0:	ff cf       	rjmp	.-2      	; 0xe0 <_exit>
